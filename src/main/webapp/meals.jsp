@@ -27,9 +27,9 @@
         <tr>
             <td>${mealTos.id}</td>
 <%--            <td style="display: none">${mealTos.id}</td>--%>
-            <td style="color:${mealTos.excess ? 'green' : 'red'}">${f:formatLocalDateTime(mealTos.dateTime, 'dd-MM-yyyy HH:mm:ss')}</td>
-            <td style="color:${mealTos.excess ? 'green' : 'red'}">${mealTos.description}</td>
-            <td style="color:${mealTos.excess ? 'green' : 'red'}">${mealTos.calories}</td>
+            <td style="color:${mealTos.excess ? 'red' : 'green'}">${f:formatLocalDateTime(mealTos.dateTime, 'dd-MM-yyyy HH:mm:ss')}</td>
+            <td style="color:${mealTos.excess ? 'red' : 'green'}">${mealTos.description}</td>
+            <td style="color:${mealTos.excess ? 'red' : 'green'}">${mealTos.calories}</td>
             <td style="color:blue"><a href="meals?action=edit&id=<c:out value="${mealTos.id}"/>">Update</a></td>
             <td style="color:blue"><a href="meals?action=delete&id=<c:out value="${mealTos.id}"/>">Delete</a></td>
         </tr>
