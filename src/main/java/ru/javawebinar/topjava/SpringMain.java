@@ -23,7 +23,7 @@ public class SpringMain {
             adminUserController.create(new User(null, "userName", "email@mail.ru", "password", Role.ADMIN));
 
             MealRestController controller = appCtx.getBean("mealRestController", MealRestController.class);
-            List<Meal> allMeal = controller.getAll();
+            List<Meal> allMeal = controller.getAll(1);
 
             for (Meal meal : allMeal) {
                 System.out.println(meal);
@@ -39,7 +39,7 @@ public class SpringMain {
 
             System.out.println("--------------------------------");
 
-            for (Meal meal : controller.getAll()) {
+            for (Meal meal : controller.getAll(1)) {
                 System.out.println(meal);
             }
         }

@@ -21,9 +21,8 @@ public class MealRestController {
     @Autowired
     private MealService service;
 
-    public List<Meal> getAll() {
+    public List<Meal> getAll(int userId) {
         log.info("getAll");
-        int userId = SecurityUtil.authUserId();
         return service.getAll(userId);
     }
 
