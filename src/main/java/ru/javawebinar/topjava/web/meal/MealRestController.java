@@ -5,9 +5,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import ru.javawebinar.topjava.model.Meal;
+import ru.javawebinar.topjava.model.MealTo;
 import ru.javawebinar.topjava.service.MealService;
+import ru.javawebinar.topjava.util.MealsUtil;
 import ru.javawebinar.topjava.web.SecurityUtil;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import static ru.javawebinar.topjava.util.ValidationUtil.assureIdConsistent;
@@ -21,9 +25,10 @@ public class MealRestController {
     @Autowired
     private MealService service;
 
-    public List<Meal> getAll(int userId) {
+    public List<MealTo> getAll(int userId) {
         log.info("getAll");
-        return service.getAll(userId);
+        List<MealTo> allMealTo = MealsUtil.getTos(service.getAll(userId), MealsUtil.DEFAULT_CALORIES_PER_DAY);
+        return allMealTo;
     }
 
     public Meal get(int id) {
@@ -46,5 +51,9 @@ public class MealRestController {
         log.info("update {} with id={}", meal, id);
         assureIdConsistent(meal, id);
         service.update(meal);
+    }
+
+    public void filtration(LocalDate fromDate, LocalDate beforeDate, LocalTime fromTime, LocalTime beforeTime) {
+        service.filtration(fromDate, beforeDate, fromTime, beforeTime);
     }
 }

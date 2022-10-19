@@ -110,19 +110,23 @@
                 <div class="b1">
                     <div class=col1>
                         От даты (включая)
-                        <input type="datetime-local" size=15>
+                        <input type="date" size=15
+                                name="fromDate">
                     </div>
                     <div class=col1>
                         До даты (включая)
-                        <input type="datetime-local" size=15>
+                        <input type="date" size=15
+                                name="beforeDate">
                     </div>
                     <div class=col2>
                         От времени (включая)<br>
-                        <input type="time" size=15>
+                        <input type="time" size=15
+                        name="fromTime">
                     </div>
                     <div class=col2>
                         До времени (исключая)<br>
-                        <input type="time" size=15>
+                        <input type="time" size=15
+                        name="beforeTime">
                     </div>
                 </div>
                 <div class="b3">
@@ -158,5 +162,7 @@
     </table>
     </div>
 </div>
+
+
 </body>
 </html>

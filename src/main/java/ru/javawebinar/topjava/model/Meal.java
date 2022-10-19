@@ -10,7 +10,6 @@ import java.time.LocalTime;
 @Component
 @Scope("prototype")
 public class Meal extends AbstractBaseEntity{
-    private Integer id;
 
     private final LocalDateTime dateTime;
 
@@ -31,14 +30,6 @@ public class Meal extends AbstractBaseEntity{
         this.description = description;
         this.calories = calories;
         this.userId = userId;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public LocalDateTime getDateTime() {
@@ -63,10 +54,6 @@ public class Meal extends AbstractBaseEntity{
 
     public int getUserId() {
         return userId;
-    }
-
-    public boolean isNew() {
-        return id == null;
     }
 
     @Override
