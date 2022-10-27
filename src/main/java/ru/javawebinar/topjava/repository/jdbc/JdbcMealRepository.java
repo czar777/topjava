@@ -23,7 +23,6 @@ public class JdbcMealRepository implements MealRepository {
 
     private static final BeanPropertyRowMapper<Meal> ROW_MAPPER = BeanPropertyRowMapper.newInstance(Meal.class);
 
-    private DriverManagerDataSource dataSource;
     private final JdbcTemplate jdbcTemplate;
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -57,7 +56,7 @@ public class JdbcMealRepository implements MealRepository {
             Number newKey = insertMeal.executeAndReturnKey(map);
             meal.setId(newKey.intValue());
         } else if (namedParameterJdbcTemplate.update(
-                "UPDATE meal SET dateTime=:dateTime, description=:description, calories=:calories WHERE id=(:id)", map) == 0) {
+                "UPDATE meal SET dateTime=:dateTime, description=:description, calories=:calories WHERE id=(:id) AND user_id=:user_id", map) == 0) {
             log.debug("update {}", meal);
             return null;
         }
@@ -67,13 +66,13 @@ public class JdbcMealRepository implements MealRepository {
     @Override
     public boolean delete(int id, int userId) {
         log.info("delete meal id={}", id);
-        return jdbcTemplate.update("DELETE FROM meal WHERE id=?", id) != 0;
+        return jdbcTemplate.update("DELETE FROM meal WHERE id=? AND user_id=?", id, userId) != 0;
     }
 
     @Override
     public Meal get(int id, int userId) {
         log.info("get meal id={}", id);
-        List<Meal> meals = jdbcTemplate.query("SELECT * FROM meal WHERE id=?", ROW_MAPPER, id);
+        List<Meal> meals = jdbcTemplate.query("SELECT * FROM meal WHERE id=?  AND user_id=?", ROW_MAPPER, id, userId);
         return DataAccessUtils.singleResult(meals);
     }
 
