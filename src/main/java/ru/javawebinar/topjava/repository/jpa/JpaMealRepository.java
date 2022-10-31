@@ -22,6 +22,7 @@ public class JpaMealRepository implements MealRepository {
     private EntityManager em;
 
     @Override
+    @Transactional
     public Meal save(Meal meal, int userId) {
         User ref = em.getReference(User.class, userId);
         meal.setUser(ref);
@@ -37,6 +38,8 @@ public class JpaMealRepository implements MealRepository {
     @Transactional
     public boolean delete(int id, int userId) {
         return em.createQuery("DELETE FROM Meal m WHERE m.id=:id AND m.user.id=:userId")
+                .setParameter("userId", userId)
+                .setParameter("id", id)
                 .executeUpdate() != 0;
     }
 
