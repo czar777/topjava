@@ -8,6 +8,7 @@ import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.MealRepository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.time.LocalDateTime;
@@ -15,6 +16,7 @@ import java.util.List;
 import org.slf4j.Logger;
 
 @Repository
+@Transactional(readOnly = true)
 public class JpaMealRepository implements MealRepository {
 
     private static final Logger log = LoggerFactory.getLogger(JpaMealRepository.class);
@@ -48,7 +50,13 @@ public class JpaMealRepository implements MealRepository {
         Query query = em.createQuery("SELECT m from Meal m WHERE m.id=:id AND m.user.id=:userId");
         query.setParameter("id", id);
         query.setParameter("userId", userId);
-        return (Meal) query.getSingleResult();
+        Meal meal;
+        try {
+            meal = (Meal) query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+        return meal;
     }
 
     @Override
@@ -61,10 +69,12 @@ public class JpaMealRepository implements MealRepository {
 
     @Override
     public List<Meal> getBetweenHalfOpen(LocalDateTime startDateTime, LocalDateTime endDateTime, int userId) {
+        log.debug("getBetweenHalfOpen");
         Query query = em.createQuery("SELECT m from Meal m WHERE m.user.id=:userId AND m.dateTime >=: startDateTime AND m.dateTime <: endDateTime ORDER BY m.dateTime DESC");
         query.setParameter("userId", userId);
         query.setParameter("endDateTime", endDateTime);
         query.setParameter("startDateTime", startDateTime);
-        return query.getResultList();
+        List<Meal> getBetweenHalfOpen = query.getResultList();
+        return getBetweenHalfOpen;
     }
 }
