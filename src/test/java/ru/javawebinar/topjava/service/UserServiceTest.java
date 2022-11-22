@@ -53,7 +53,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void duplicateMailCreate() {
+    public void duplicateMailCreate() { //1
         assertThrows(DataAccessException.class, () ->
                 service.create(new User(null, "Duplicate", "user@yandex.ru", "newPass", Role.USER)));
     }
@@ -64,7 +64,7 @@ public class UserServiceTest {
         assertThrows(NotFoundException.class, () -> service.get(USER_ID));
     }
 
-    @Test
+    @Test //1
     public void deletedNotFound() {
         assertThrows(NotFoundException.class, () -> service.delete(NOT_FOUND));
     }
@@ -80,7 +80,7 @@ public class UserServiceTest {
         assertThrows(NotFoundException.class, () -> service.get(NOT_FOUND));
     }
 
-    @Test
+    @Test//3
     public void getByEmail() {
         User user = service.getByEmail("admin@gmail.com");
         USER_MATCHER.assertMatch(user, admin);
