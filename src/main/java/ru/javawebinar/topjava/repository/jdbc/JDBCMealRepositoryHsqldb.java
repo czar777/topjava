@@ -5,18 +5,19 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Repository
-@Profile("postgres")
-public class JdbcMealRepository extends AbstractMealRepository {
+@Profile("hsqldb")
+public class JDBCMealRepositoryHsqldb extends AbstractMealRepository{
 
-    public JdbcMealRepository(JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+    public JDBCMealRepositoryHsqldb(JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         super(jdbcTemplate, namedParameterJdbcTemplate);
     }
 
     @Override
     protected <T> T toDbDateTime(LocalDateTime ldt) {
-        return (T) ldt;
+        return (T) Timestamp.valueOf(ldt);
     }
 }
