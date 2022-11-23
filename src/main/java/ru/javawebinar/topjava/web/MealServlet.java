@@ -6,6 +6,7 @@ import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.util.StringUtils;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.web.meal.MealRestController;
+import ru.javawebinar.topjava.web.user.ProfileRestController;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -25,6 +26,7 @@ public class MealServlet extends HttpServlet {
 
     private ClassPathXmlApplicationContext springContext;
     private MealRestController mealController;
+    private ProfileRestController userController;
 
     @Override
     public void init() {
@@ -32,6 +34,7 @@ public class MealServlet extends HttpServlet {
         springContext.getEnvironment().setActiveProfiles("datajpa", "postgres");
         springContext.setConfigLocations("spring/spring-app.xml", "spring/spring-db.xml");
         springContext.refresh();
+        userController = springContext.getBean(ProfileRestController.class);
         mealController = springContext.getBean(MealRestController.class);
     }
 

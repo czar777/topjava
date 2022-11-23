@@ -1,5 +1,6 @@
 package ru.javawebinar.topjava.model;
 
+import org.hibernate.annotations.Sort;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.util.CollectionUtils;
 
@@ -50,6 +51,10 @@ public class User extends AbstractNamedEntity {
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
+    @OneToMany(mappedBy = "user")
+    @OrderBy("dateTime DESC")
+    private List<Meal> meals;
+
     @Column(name = "calories_per_day", nullable = false, columnDefinition = "int default 2000")
     @Range(min = 10, max = 10000)
     private int caloriesPerDay = DEFAULT_CALORIES_PER_DAY;
@@ -64,6 +69,7 @@ public class User extends AbstractNamedEntity {
     public User(Integer id, String name, String email, String password, Role... roles) {
         this(id, name, email, password, DEFAULT_CALORIES_PER_DAY, true, new Date(), Arrays.asList((roles)));
     }
+
 
     public User(Integer id, String name, String email, String password, int caloriesPerDay, boolean enabled, Date registered, Collection<Role> roles) {
         super(id, name);
@@ -121,6 +127,14 @@ public class User extends AbstractNamedEntity {
 
     public String getPassword() {
         return password;
+    }
+
+    public List<Meal> getMeals() {
+        return meals;
+    }
+
+    public void setMeals(List<Meal> meals) {
+        this.meals = meals;
     }
 
     @Override

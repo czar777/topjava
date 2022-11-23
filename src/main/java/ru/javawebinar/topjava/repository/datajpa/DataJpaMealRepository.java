@@ -1,7 +1,9 @@
 package ru.javawebinar.topjava.repository.datajpa;
 
+import org.hibernate.Hibernate;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.MealRepository;
@@ -35,7 +37,6 @@ public class DataJpaMealRepository implements MealRepository {
             return null;
         }
 
-
         return crudRepository.save(meal);
 
     }
@@ -48,6 +49,14 @@ public class DataJpaMealRepository implements MealRepository {
     @Override
     public Meal get(int id, int userId) {
         return crudRepository.findByIdAndUserId(id, userId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Meal getMealWithUser(int id, int userId) {
+        Meal meal = crudRepository.findByIdAndUserId(id, userId);
+        Hibernate.initialize(meal.getUser());
+        return meal;
     }
 
     @Override

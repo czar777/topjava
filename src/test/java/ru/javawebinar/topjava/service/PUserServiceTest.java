@@ -17,13 +17,12 @@ import static org.junit.Assert.assertThrows;
 import static ru.javawebinar.topjava.UserTestData.*;
 import static ru.javawebinar.topjava.UserTestData.user;
 
-//@ActiveProfiles(resolver = ActiveDbProfileResolver.class)
-@Ignore
+//@Ignore
 public class PUserServiceTest extends AbstractServiceTest{
 
 
     @Autowired
-    private UserService service;
+    protected UserService service;
 
     @Test
     public void create() {
