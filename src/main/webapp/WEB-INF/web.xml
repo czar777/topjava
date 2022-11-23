@@ -26,4 +26,14 @@
         <url-pattern>/meals</url-pattern>
     </servlet-mapping>
 
+<!--    <context-param>-->
+<!--        <param-name>spring.profiles.default</param-name>-->
+<!--        <param-value>jdbc, postgres</param-value>-->
+<!--    </context-param>-->
+
+<!--    &lt;!&ndash; setting the active profile &ndash;&gt;-->
+<!--    <context-param>-->
+<!--        <param-name>spring.profiles.active</param-name>-->
+<!--        <param-value>jdbc, postgres</param-value>-->
+<!--    </context-param>-->
 </web-app>

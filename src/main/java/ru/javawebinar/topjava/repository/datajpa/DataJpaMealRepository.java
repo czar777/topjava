@@ -22,6 +22,7 @@ public class DataJpaMealRepository implements MealRepository {
 
     @Override
     public Meal save(Meal meal, int userId) {
+        System.out.println("datajpa");
         User user = crudUserRepository.findById(userId).orElse(null);
         meal.setUser(user);
 
