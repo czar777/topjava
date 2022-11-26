@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="fn" uri="http://topjava.javawebinar.ru/functions" %>
 
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
@@ -13,9 +14,9 @@
 <section>
     <h3><a href="index.html">Home</a></h3>
     <hr>
-    <h2>Create meal</h2>
+    <h2>Edit meal</h2>
     <jsp:useBean id="meal" type="ru.javawebinar.topjava.model.Meal" scope="request"/>
-    <form method="post" action="<spring:url value="/meals"/>" model="meal">
+    <form method="post" action="<spring:url value="/meals/update"/>" model="meal">
         <input type="hidden" name="id" value="${meal.id}">
         <dl>
             <dt>DateTime:</dt>

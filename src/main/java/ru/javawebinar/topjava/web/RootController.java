@@ -15,8 +15,11 @@ import javax.servlet.http.HttpServletRequest;
 public class RootController {
     private static final Logger log = LoggerFactory.getLogger(RootController.class);
 
-    @Autowired
-    private UserService service;
+    private final UserService service;
+
+    public RootController(UserService service) {
+        this.service = service;
+    }
 
     @GetMapping("/")
     public String root() {
