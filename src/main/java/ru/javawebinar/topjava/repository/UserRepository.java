@@ -1,5 +1,6 @@
 package ru.javawebinar.topjava.repository;
 
+import org.springframework.transaction.annotation.Transactional;
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
 
@@ -26,6 +27,10 @@ public interface UserRepository {
     }
 
     default void addUserRoles(Set<Role> roles, int userId) {
+    }
+
+    default void setUserRoles(Set<Role> roles, int userId) {
+
     }
 
     default void deleteUserRoles(Set<Role> roles, int userId) {
