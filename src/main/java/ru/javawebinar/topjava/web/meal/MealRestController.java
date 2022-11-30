@@ -58,16 +58,26 @@ public class MealRestController extends AbstractMealController {
     }
 
 
+//    @GetMapping("/filter")
+//    public List<MealTo> getBetween(@RequestParam String startDate,@RequestParam String startTime,
+//                                   @RequestParam String endDate,@RequestParam String endTime) {
+//
+//        LocalDate startD = parseLocalDate(startDate);
+//        LocalDate endD = parseLocalDate(endDate);
+//        LocalTime startT = parseLocalTime(startTime);
+//        LocalTime endT = parseLocalTime(endTime);
+//
+//        List<MealTo> meals = super.getBetween(startD, startT, endD, endT);
+//        return meals;
+//    }
+
     @GetMapping("/filter")
-    public List<MealTo> getBetween(@RequestParam String startDate,@RequestParam String startTime,
-                                   @RequestParam String endDate,@RequestParam String endTime) {
+    public List<MealTo> getBetween(@DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam LocalDate startDate,
+                                   @DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam LocalDate endDate,
+                                   @DateTimeFormat(pattern = "HH:mm") @RequestParam LocalTime startTime,
+                                   @DateTimeFormat(pattern = "HH:mm") @RequestParam LocalTime endTime) {
 
-        LocalDate startD = parseLocalDate(startDate);
-        LocalDate endD = parseLocalDate(endDate);
-        LocalTime startT = parseLocalTime(startTime);
-        LocalTime endT = parseLocalTime(endTime);
-
-        List<MealTo> meals = super.getBetween(startD, startT, endD, endT);
+        List<MealTo> meals = super.getBetween(startDate, startTime, endDate, endTime);
         return meals;
     }
 }
