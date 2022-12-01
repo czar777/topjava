@@ -1,22 +1,20 @@
 package ru.javawebinar.topjava.web.meal;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.to.MealTo;
+import ru.javawebinar.topjava.util.ConverterLocalDate;
 
 import java.net.URI;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-
-import static ru.javawebinar.topjava.util.DateTimeUtil.parseLocalDate;
-import static ru.javawebinar.topjava.util.DateTimeUtil.parseLocalTime;
 
 @RestController
 @RequestMapping(value = "/rest/meals", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -57,7 +55,6 @@ public class MealRestController extends AbstractMealController {
         super.update(meal, id);
     }
 
-
 //    @GetMapping("/filter")
 //    public List<MealTo> getBetween(@RequestParam String startDate,@RequestParam String startTime,
 //                                   @RequestParam String endDate,@RequestParam String endTime) {
@@ -71,13 +68,24 @@ public class MealRestController extends AbstractMealController {
 //        return meals;
 //    }
 
+//    @GetMapping("/filter")
+//    public List<MealTo> getBetween(@DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam LocalDate startDate,
+//                                   @DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam LocalDate endDate,
+//                                   @DateTimeFormat(pattern = "HH:mm") @RequestParam LocalTime startTime,
+//                                   @DateTimeFormat(pattern = "HH:mm") @RequestParam LocalTime endTime) {
+//
+//        List<MealTo> meals = super.getBetween(startDate, startTime, endDate, endTime);
+//        return meals;
+//    }
+
     @GetMapping("/filter")
-    public List<MealTo> getBetween(@DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam LocalDate startDate,
-                                   @DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam LocalDate endDate,
-                                   @DateTimeFormat(pattern = "HH:mm") @RequestParam LocalTime startTime,
-                                   @DateTimeFormat(pattern = "HH:mm") @RequestParam LocalTime endTime) {
+    public List<MealTo> getBetween(@RequestParam(required = false) LocalDate startDate,
+                                   @RequestParam(required = false) LocalDate endDate,
+                                   @RequestParam(required = false) LocalTime startTime,
+                                   @RequestParam(required = false) LocalTime endTime) {
 
         List<MealTo> meals = super.getBetween(startDate, startTime, endDate, endTime);
         return meals;
     }
+
 }
