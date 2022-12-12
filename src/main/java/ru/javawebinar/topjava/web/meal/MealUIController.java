@@ -6,20 +6,27 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.javawebinar.topjava.model.Meal;
+import ru.javawebinar.topjava.to.MealTo;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.Objects;
 
 import static ru.javawebinar.topjava.util.DateTimeUtil.parseLocalDate;
 import static ru.javawebinar.topjava.util.DateTimeUtil.parseLocalTime;
 
 @Controller
-@RequestMapping("/meals")
-public class JspMealController extends AbstractMealController {
+@RequestMapping("ajax/meals")
+public class MealUIController extends AbstractMealController {
+
+    @Override
+    public List<MealTo> getAll() {
+        return super.getAll();
+    }
 
     @GetMapping("/delete")
     public String delete(HttpServletRequest request) {

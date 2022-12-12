@@ -51,4 +51,6 @@ public class RootController {
                 MealsUtil.getTos(mealService.getAll(SecurityUtil.authUserId()), SecurityUtil.authUserCaloriesPerDay()));
         return "meals";
     }
+
+
 }

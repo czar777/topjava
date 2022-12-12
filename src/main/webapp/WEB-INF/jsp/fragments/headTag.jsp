@@ -15,9 +15,13 @@
     <link rel="shortcut icon" href="resources/images/icon-meal.png">
 
     <%--http://stackoverflow.com/a/24070373/548473--%>
-    <script src="webjars/jquery/3.6.1/jquery.min.js" defer></script>
-    <script src="webjars/bootstrap/4.6.2/js/bootstrap.min.js" defer></script>
-    <script src="webjars/datatables/1.13.1/js/jquery.dataTables.min.js" defer></script>
-    <script src="webjars/datatables/1.13.1/js/dataTables.bootstrap4.min.js" defer></script>
-    <script src="webjars/noty/3.1.4/lib/noty.min.js" defer></script>
+    <script src="webjars/jquery/3.6.1/jquery.min.js"></script>
+    <script src="webjars/bootstrap/4.6.2/js/bootstrap.min.js"></script>
+    <script src="webjars/datatables/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="webjars/datatables/1.13.1/js/dataTables.bootstrap4.min.js"></script>
+    <script src="webjars/noty/3.1.4/lib/noty.min.js"></script>
+
+<%--    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>--%>
+<%--    <script src="http://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"></script>--%>
+<%--    <script src="http://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>--%>
 </head>

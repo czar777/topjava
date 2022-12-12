@@ -1,31 +1,23 @@
-const userAjaxUrl = "admin/users/";
+const userAjaxUrl = "ajax/meals";
 
-// https://stackoverflow.com/a/5064235/548473
 const ctx = {
     ajaxUrl: userAjaxUrl
 };
 
-// $(document).ready(function () {
 $(function () {
     makeEditable(
         $("#datatable").DataTable({
-            "paging": false,
+            "paging": true,
             "info": true,
             "columns": [
                 {
-                    "data": "name"
+                    "data": "dateTime"
                 },
                 {
-                    "data": "email"
+                    "data": "description"
                 },
                 {
-                    "data": "roles"
-                },
-                {
-                    "data": "enabled"
-                },
-                {
-                    "data": "registered"
+                    "data": "calories"
                 },
                 {
                     "defaultContent": "Edit",
@@ -35,12 +27,6 @@ $(function () {
                     "defaultContent": "Delete",
                     "orderable": false
                 }
-            ],
-            "order": [
-                [
-                    0,
-                    "asc"
-                ]
             ]
         })
     );
