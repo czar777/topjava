@@ -30,7 +30,18 @@
                     <dt><spring:message code="meal.endTime"/>:</dt>
                     <dd><input type="time" name="endTime" value="${param.endTime}"></dd>
                 </dl>
-                <button type="submit"><spring:message code="meal.filter"/></button>
+<%--                <button type="submit"><spring:message code="meal.filter"/></button>--%>
+
+                <div class="card-footer text-right">
+                    <button class="btn btn-danger" onclick="clearFilter()">
+                        <span class="fa fa-remove"></span>
+                        Отменить
+                    </button>
+                    <button class="btn btn-primary" onclick="updateTable()">
+                        <span class="fa fa-filter"></span>
+                        Отфильтровать
+                    </button>
+                </div>
             </form>
             <hr>
 <%--            <a href="meals/create"><spring:message code="meal.add"/></a>--%>
