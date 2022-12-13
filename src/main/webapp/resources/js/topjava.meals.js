@@ -2,16 +2,7 @@ const ajaxUrl = "ajax/meals/";
 
 const ctx = {
     ajaxUrl: ajaxUrl,
-
 };
-
-function clearFilter() {
-
-}
-
-function updateTable() {
-
-}
 
 $(function () {
     makeEditable(
@@ -40,3 +31,5 @@ $(function () {
         })
     );
 });
+
+

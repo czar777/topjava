@@ -34,7 +34,6 @@ function deleteRow(id) {
 
 function updateTable() {
     $.get(ctx.ajaxUrl, function (data) {
-        alert(data);
         ctx.datatableApi.clear().rows.add(data).draw();
     });
 }
@@ -78,4 +77,22 @@ function failNoty(jqXHR) {
         layout: "bottomRight"
     });
     failedNote.show()
+}
+
+function clearFilter() {
+    alert("clearFilter")
+}
+
+function filterTable() {
+    $.ajax({
+        type: "GET",
+        url: ctx.ajaxUrl + 'filter',
+        data: $('#filterForm').serialize()
+    }).done(function (data) {
+        updateTableFilter(data);
+    });
+}
+
+function updateTableFilter(data) {
+    ctx.datatableApi.clear().rows.add(data).draw();
 }

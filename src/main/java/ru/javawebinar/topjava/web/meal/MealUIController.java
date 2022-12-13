@@ -1,5 +1,7 @@
 package ru.javawebinar.topjava.web.meal;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,7 @@ import static ru.javawebinar.topjava.util.DateTimeUtil.parseLocalTime;
 @RestController
 @RequestMapping(value = "/ajax/meals", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MealUIController extends AbstractMealController {
+    private static final Logger log = LoggerFactory.getLogger(MealUIController.class);
 
     @Override
     @GetMapping
@@ -41,9 +44,9 @@ public class MealUIController extends AbstractMealController {
     @PostMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateOrCreate(@RequestParam String dateTime,
-                                 @RequestParam String description,
-                                 @RequestParam int calories,
-                                 @RequestParam(required = false) Integer id) {
+                               @RequestParam String description,
+                               @RequestParam int calories,
+                               @RequestParam(required = false) Integer id) {
         Meal meal = new Meal(LocalDateTime.parse(dateTime),
                 description,
                 calories);
@@ -56,12 +59,12 @@ public class MealUIController extends AbstractMealController {
     }
 
     @GetMapping("/filter")
-    public String getBetween(HttpServletRequest request, Model model) {
-        LocalDate startDate = parseLocalDate(request.getParameter("startDate"));
-        LocalDate endDate = parseLocalDate(request.getParameter("endDate"));
-        LocalTime startTime = parseLocalTime(request.getParameter("startTime"));
-        LocalTime endTime = parseLocalTime(request.getParameter("endTime"));
-        model.addAttribute("meals", super.getBetween(startDate, startTime, endDate, endTime));
-        return "meals";
+    public List<MealTo> getBetween(@RequestParam(required = false) LocalDate startDate,
+                                   @RequestParam(required = false) LocalDate endDate,
+                                   @RequestParam(required = false) LocalTime startTime,
+                                   @RequestParam(required = false) LocalTime endTime) {
+        log.info("MealUIController between");
+        List<MealTo> between = super.getBetween(startDate, startTime, endDate, endTime);
+        return between;
     }
 }
