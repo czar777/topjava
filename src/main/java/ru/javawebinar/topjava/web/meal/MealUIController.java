@@ -1,12 +1,14 @@
 package ru.javawebinar.topjava.web.meal;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.to.MealTo;
+import ru.javawebinar.topjava.util.MealsUtil;
+import ru.javawebinar.topjava.web.SecurityUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
@@ -19,45 +21,38 @@ import java.util.Objects;
 import static ru.javawebinar.topjava.util.DateTimeUtil.parseLocalDate;
 import static ru.javawebinar.topjava.util.DateTimeUtil.parseLocalTime;
 
-@Controller
-@RequestMapping("ajax/meals")
+@RestController
+@RequestMapping(value = "/ajax/meals", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MealUIController extends AbstractMealController {
 
     @Override
+    @GetMapping
     public List<MealTo> getAll() {
-        return super.getAll();
+        List<MealTo> all = super.getAll();
+        return all;
     }
 
-    @GetMapping("/delete")
-    public String delete(HttpServletRequest request) {
-        super.delete(getId(request));
-        return "redirect:/meals";
-    }
-
-    @GetMapping("/update")
-    public String update(HttpServletRequest request, Model model) {
-        model.addAttribute("meal", super.get(getId(request)));
-        return "mealForm";
-    }
-
-    @GetMapping("/create")
-    public String create(Model model) {
-        model.addAttribute("meal", new Meal(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES), "", 1000));
-        return "mealForm";
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable int id) {
+        super.delete(id);
     }
 
     @PostMapping
-    public String updateOrCreate(HttpServletRequest request) {
-        Meal meal = new Meal(LocalDateTime.parse(request.getParameter("dateTime")),
-                request.getParameter("description"),
-                Integer.parseInt(request.getParameter("calories")));
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateOrCreate(@RequestParam String dateTime,
+                                 @RequestParam String description,
+                                 @RequestParam int calories,
+                                 @RequestParam(required = false) Integer id) {
+        Meal meal = new Meal(LocalDateTime.parse(dateTime),
+                description,
+                calories);
 
-        if (request.getParameter("id").isEmpty()) {
+        if (id == null) {
             super.create(meal);
         } else {
-            super.update(meal, getId(request));
+            super.update(meal, id);
         }
-        return "redirect:/meals";
     }
 
     @GetMapping("/filter")
@@ -68,10 +63,5 @@ public class MealUIController extends AbstractMealController {
         LocalTime endTime = parseLocalTime(request.getParameter("endTime"));
         model.addAttribute("meals", super.getBetween(startDate, startTime, endDate, endTime));
         return "meals";
-    }
-
-    private int getId(HttpServletRequest request) {
-        String paramId = Objects.requireNonNull(request.getParameter("id"));
-        return Integer.parseInt(paramId);
     }
 }
