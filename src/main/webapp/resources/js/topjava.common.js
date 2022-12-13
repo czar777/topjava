@@ -83,16 +83,29 @@ function clearFilter() {
     alert("clearFilter")
 }
 
+// function filterTable() {
+//     $.ajax({
+//         type: "GET",
+//         url: ctx.ajaxUrl + 'filter',
+//         data: $('#filterDetails').serialize()
+//     }).done(function () {
+//         updateTableByData();
+//     });
+// }
+
+function updateTableByData(data) {
+    ctx.datatableApi.clear().rows.add(data).draw();
+}
+
+$('#filterDetails').submit(function () {
+    filterTable();
+    return false;});
+
 function filterTable() {
     $.ajax({
         type: "GET",
         url: ctx.ajaxUrl + 'filter',
-        data: $('#filterForm').serialize()
-    }).done(function (data) {
-        updateTableFilter(data);
+        data: $('#filterDetails').serialize(),
+        success: updateTableByData
     });
-}
-
-function updateTableFilter(data) {
-    ctx.datatableApi.clear().rows.add(data).draw();
 }

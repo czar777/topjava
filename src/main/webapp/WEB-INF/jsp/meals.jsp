@@ -14,7 +14,7 @@
             <h3><spring:message code="meal.title"/></h3>
 
             <%--            <form method="get" action="meals/filter" id="filterForm">--%>
-            <form id="filterForm">
+            <form id="filterDetails">
                 <dl>
                     <dt><spring:message code="meal.startDate"/>:</dt>
                     <dd><input type="date" name="startDate" value="${param.startDate}"></dd>
@@ -38,7 +38,8 @@
 <%--                    <span class="fa fa-remove"></span>--%>
 <%--                    Отменить--%>
 <%--                </button>--%>
-                <button onclick="filterTable()">
+<%--                <button class="btn btn-primary" onclick="filterTable()">--%>
+                <button class="btn btn-primary">
                     <span class="fa fa-filter"></span>
                     Отфильтровать
                 </button>
