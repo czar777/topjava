@@ -83,15 +83,15 @@ function clearFilter() {
     alert("clearFilter")
 }
 
-// function filterTable() {
-//     $.ajax({
-//         type: "GET",
-//         url: ctx.ajaxUrl + 'filter',
-//         data: $('#filterDetails').serialize()
-//     }).done(function () {
-//         updateTableByData();
-//     });
-// }
+function filterTable() {
+    $.ajax({
+        type: "GET",
+        url: ctx.ajaxUrl + 'filter',
+        data: $('#filterDetails').serialize()
+    }).done(function (data) {
+        updateTableByData(data);
+    });
+}
 
 function updateTableByData(data) {
     ctx.datatableApi.clear().rows.add(data).draw();
@@ -101,11 +101,11 @@ $('#filterDetails').submit(function () {
     filterTable();
     return false;});
 
-function filterTable() {
-    $.ajax({
-        type: "GET",
-        url: ctx.ajaxUrl + 'filter',
-        data: $('#filterDetails').serialize(),
-        success: updateTableByData
-    });
-}
+// function filterTable() {
+//     $.ajax({
+//         type: "GET",
+//         url: ctx.ajaxUrl + 'filter',
+//         data: $('#filterDetails').serialize(),
+//         success: updateTableByData
+//     });
+// }
