@@ -80,7 +80,8 @@ function failNoty(jqXHR) {
 }
 
 function clearFilter() {
-    alert("clearFilter")
+    let formTable = $('#filterDetails');
+    formTable.find(":input").val("");
 }
 
 function filterTable() {
@@ -90,6 +91,7 @@ function filterTable() {
         data: $('#filterDetails').serialize()
     }).done(function (data) {
         updateTableByData(data);
+        successNoty("Filtered");
     });
 }
 
@@ -97,7 +99,19 @@ function updateTableByData(data) {
     ctx.datatableApi.clear().rows.add(data).draw();
 }
 
+// $('#clearFilter').on('click', function () {
+//     alert("clearFilter");
+//     clearFilter();
+//     filterTable();
+// });
+//
+// $('#filterTable').on('click', function () {
+//     alert("filterTable");
+//     filterTable();
+// });
+
 $('#filterDetails').submit(function () {
+
     filterTable();
     return false;});
 

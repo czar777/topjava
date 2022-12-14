@@ -34,12 +34,11 @@
                 <%--                <button type="submit"><spring:message code="meal.filter"/></button>--%>
 
                 <%--                <div class="card-footer text-right">--%>
-<%--                <button class="btn btn-danger" onclick="clearFilter()">--%>
-<%--                    <span class="fa fa-remove"></span>--%>
-<%--                    Отменить--%>
-<%--                </button>--%>
-<%--                <button class="btn btn-primary" onclick="filterTable()">--%>
-                <button class="btn btn-primary">
+                <button class="btn btn-danger" onclick="clearFilter()">
+                    <span class="fa fa-remove"></span>
+                    Отменить
+                </button>
+                <button class="btn btn-primary" id="filterTable">
                     <span class="fa fa-filter"></span>
                     Отфильтровать
                 </button>
