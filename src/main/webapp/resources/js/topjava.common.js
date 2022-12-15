@@ -111,7 +111,6 @@ function updateTableByData(data) {
 // });
 
 $('#filterDetails').submit(function () {
-
     filterTable();
     return false;});
 
@@ -123,3 +122,23 @@ $('#filterDetails').submit(function () {
 //         success: updateTableByData
 //     });
 // }
+
+function changeCheckbox(element) {
+    let active;
+    let id = $(element).closest('tr').attr('id');
+    if ($(element).is(':checked')){
+        active = 'true';
+    } else {
+        active = 'false';
+    }
+
+    $.ajax({
+        type: "GET",
+        url: ctx.ajaxUrl + 'active',
+        dataType: 'json',
+        data: {text: active, id: id}
+    }).done(function () {
+        updateTable();
+    });
+
+}

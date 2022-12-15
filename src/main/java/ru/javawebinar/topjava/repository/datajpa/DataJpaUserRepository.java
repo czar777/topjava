@@ -1,5 +1,7 @@
 package ru.javawebinar.topjava.repository.datajpa;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.User;
@@ -12,6 +14,8 @@ public class DataJpaUserRepository implements UserRepository {
     private static final Sort SORT_NAME_EMAIL = Sort.by(Sort.Direction.ASC, "name", "email");
 
     private final CrudUserRepository crudRepository;
+
+    private final static Logger log = LoggerFactory.getLogger(DataJpaUserRepository.class);
 
     public DataJpaUserRepository(CrudUserRepository crudRepository) {
         this.crudRepository = crudRepository;
@@ -45,5 +49,11 @@ public class DataJpaUserRepository implements UserRepository {
     @Override
     public User getWithMeals(int id) {
         return crudRepository.getWithMeals(id);
+    }
+
+    @Override
+    public void enable(boolean active, int id) {
+        log.info("enable {}", id);
+        crudRepository.enable(active, id);
     }
 }

@@ -32,4 +32,17 @@ public class AdminUIController extends AbstractUserController {
                        @RequestParam String password) {
         super.create(new User(null, name, email, password, Role.USER));
     }
+
+    @GetMapping("/active")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void enable(@RequestParam String text,
+                             @RequestParam int id) {
+        boolean active;
+        if (text.equals("false")) {
+            active = false;
+        } else {
+            active = true;
+        }
+        super.enable(active, id);
+    }
 }
