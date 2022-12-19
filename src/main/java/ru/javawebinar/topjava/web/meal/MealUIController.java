@@ -35,6 +35,12 @@ public class MealUIController extends AbstractMealController {
         super.delete(id);
     }
 
+    @Override
+    @GetMapping("/{id}")
+    public Meal get(@PathVariable int id) {
+        return super.get(id);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<String> create(@Valid MealTo mealTo, BindingResult result) {
@@ -46,7 +52,12 @@ public class MealUIController extends AbstractMealController {
                     .collect(Collectors.joining("<br>"));
             return ResponseEntity.unprocessableEntity().body(errorFieldsMsg);
         }
-        super.create(meal);
+        if (meal.isNew()) {
+            super.create(meal);
+        } else {
+            super.update(meal, meal.getId());
+        }
+
         return ResponseEntity.ok().build();
     }
 
