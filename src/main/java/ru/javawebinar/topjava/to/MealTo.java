@@ -6,16 +6,16 @@ import java.util.Objects;
 
 public class MealTo extends BaseTo {
 
-    private final LocalDateTime dateTime;
+    private LocalDateTime dateTime;
 
-    private final String description;
+    private String description;
 
-    private final int calories;
+    private int calories;
 
-    private final boolean excess;
+    private Boolean excess;
 
     @ConstructorProperties({"id", "dateTime", "description", "calories", "excess"})
-    public MealTo(Integer id, LocalDateTime dateTime, String description, int calories, boolean excess) {
+    public MealTo(Integer id, LocalDateTime dateTime, String description, int calories, Boolean excess) {
         super(id);
         this.dateTime = dateTime;
         this.description = description;
@@ -37,6 +37,22 @@ public class MealTo extends BaseTo {
 
     public boolean isExcess() {
         return excess;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setCalories(int calories) {
+        this.calories = calories;
+    }
+
+    public void setExcess(Boolean excess) {
+        this.excess = excess;
     }
 
     @Override
