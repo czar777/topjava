@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -74,6 +76,12 @@ public class ExceptionInfoHandler {
         BindException e1 = (BindException) e;
         String errorResponse = ValidationUtil.getErrorResponse(e1);
         return new ErrorInfo(req.getRequestURL(), errorType, errorResponse);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ErrorInfo handleMethodArgumentNotValidException(HttpServletRequest req, MethodArgumentNotValidException e) {
+
+        return logAndGetErrorInfo(req, e, true, VALIDATION_ERROR);
     }
 }
 
