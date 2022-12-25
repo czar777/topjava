@@ -6,10 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import ru.javawebinar.topjava.model.User;
-import ru.javawebinar.topjava.repository.UserRepository;
 import ru.javawebinar.topjava.service.UserService;
 import ru.javawebinar.topjava.to.UserTo;
-import ru.javawebinar.topjava.util.UserValidator;
+import ru.javawebinar.topjava.util.UserToValidator;
 import ru.javawebinar.topjava.util.UsersUtil;
 
 import java.util.List;
@@ -24,7 +23,7 @@ public abstract class AbstractUserController {
     private UserService service;
 
     @Autowired
-    private UserValidator userValidator;
+    private UserToValidator userValidator;
 
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
