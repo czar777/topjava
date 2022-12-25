@@ -1,8 +1,10 @@
 package ru.javawebinar.topjava.web.meal;
 
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -10,6 +12,7 @@ import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.service.MealService;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 import ru.javawebinar.topjava.web.AbstractControllerTest;
+import ru.javawebinar.topjava.web.SecurityUtil;
 import ru.javawebinar.topjava.web.json.JsonUtil;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -125,15 +128,16 @@ class MealRestControllerTest extends AbstractControllerTest {
                 .andExpect(TO_MATCHER.contentJson(getTos(meals, user.getCaloriesPerDay())));
     }
 
-    @Test
-    void createWithLocationDescriptionIsNull() throws Exception {
-        Meal newMeal = getNew();
-        newMeal.setCalories(-1);
-        ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
-                .contentType(MediaType.APPLICATION_JSON)
-                .with(userHttpBasic(user))
-                .content(JsonUtil.writeValue(newMeal)))
-                .andExpect(status().isUnprocessableEntity());
+//    @Test
+//    void createWithLocationDescriptionIsNull() throws Exception {
+//        Meal newMeal = getNew();
+//        newMeal.setCalories(-1);
+//        ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .with(userHttpBasic(user))
+//                .content(JsonUtil.writeValue(newMeal)))
+//                .andExpect(status().isUnprocessableEntity());
+//    }
 
-    }
+
 }
