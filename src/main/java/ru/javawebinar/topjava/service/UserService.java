@@ -10,8 +10,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import ru.javawebinar.topjava.AuthorizedUser;
 import ru.javawebinar.topjava.model.User;
+import ru.javawebinar.topjava.util.UserValidator;
 import ru.javawebinar.topjava.repository.UserRepository;
 import ru.javawebinar.topjava.to.UserTo;
 import ru.javawebinar.topjava.util.UsersUtil;
@@ -28,6 +31,7 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
+
 
     public UserService(UserRepository repository, PasswordEncoder passwordEncoder) {
         this.repository = repository;
